@@ -10,7 +10,7 @@ In this study, we present a region-aware Hierarchical Graph Contrastive Learning
 
 ||
 |--|
-| <img src="img/model.png" width="3500px"> |
+| <img src="img/model.png" width="500px"> |
 
 ## Requirements
 
