@@ -31,13 +31,13 @@ The dataset is based on [Chengdu Taxi dataset](https://www.pkbigdata.com/common/
 
 ## Arguments
 
-- stage: training stage, within [traj, relation_graph, urban, total], to train the model layer by layer or end-to-end
-- batch_size: training batch size
-- lr: the learning rate
-- weight_decay: the weight decay of the optimizer in Adam
-- seed: random seed
-- hidden_dim: the dimension of embeddings
-- epoch: training epochs
+- **stage**: training stage, within [traj, relation_graph, urban, total], to train the model layer by layer or end-to-end
+- **batch_size**: training batch size
+- **lr**: the learning rate
+- **weight_decay**: the weight decay of the optimizer in Adam
+- **seed**: random seed
+- **hidden_dim**: the dimension of embeddings
+- **epoch**: training epochs
 
 
 
