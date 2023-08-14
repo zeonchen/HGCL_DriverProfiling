@@ -4,7 +4,7 @@ from math import ceil
 from torch_geometric.nn import DenseGraphConv, dense_diff_pool, GraphNorm
 import torch.nn as nn
 import numpy as np
-import random 
+import random
 import copy
 from torch.nn.utils.rnn import pack_padded_sequence
 
@@ -81,7 +81,7 @@ class HGCL(nn.Module):
         self.gru = nn.GRU(input_size=22, hidden_size=hidden_dim, num_layers=2, batch_first=True)
         self.relational_traj_linear = nn.Linear(hidden_dim, 1)
         self.traj_gnn = GNN(in_channels=hidden_dim, hidden_channels=64, out_channels=hidden_dim, num_layer=1)
-        self.urban_gnn = GNN(in_channels=hidden_dim, hidden_channels=64, out_channels=hidden_dim, num_layer=1)
+        # self.urban_gnn = GNN(in_channels=hidden_dim, hidden_channels=64, out_channels=hidden_dim, num_layer=1)
         self.urban_diffpool = DiffPool(max_nodes=900, input_dim=hidden_dim+19+4, hidden_dim=hidden_dim, outpu_dim=hidden_dim, ratio=0.25)
         self.semantic_diffpool = DiffPool(max_nodes=900, input_dim=hidden_dim+19+4, hidden_dim=hidden_dim, outpu_dim=hidden_dim, ratio=0.25)
 

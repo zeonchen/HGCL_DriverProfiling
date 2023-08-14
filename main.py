@@ -122,6 +122,7 @@ def train(args, moco, batch_traj, batch_len, batch_region, batch_num, urban_adj,
                 optimizer.zero_grad()
                 traj_cl_loss.backward(retain_graph=True)
                 optimizer.step()
+                total_loss_list.append(loss.item())
                 continue
 
             contra_rl, batch_traj_graph_embed = construct_traj_rel(moco, batch_traj, batch_len, batch_region, batch_num, batch_size, device)
@@ -150,6 +151,7 @@ def train(args, moco, batch_traj, batch_len, batch_region, batch_num, urban_adj,
                 optimizer.zero_grad()
                 loss.backward(retain_graph=True)
                 optimizer.step()
+                total_loss_list.append(loss.item())
                 continue
 
             # contrast EUG and SUG
@@ -184,6 +186,7 @@ def train(args, moco, batch_traj, batch_len, batch_region, batch_num, urban_adj,
                 optimizer.zero_grad()
                 loss.backward(retain_graph=True)
                 optimizer.step()
+                total_loss_list.append(loss.item())
                 continue
 
             # Driver contrast
@@ -193,8 +196,8 @@ def train(args, moco, batch_traj, batch_len, batch_region, batch_num, urban_adj,
             cl_loss = moco.driver_moco(q_driver, k_driver)
 
             if args.stage == 'total':
-                loss = traj_cl_loss + relation_cl_loss + eug_cl_loss + sug_cl_loss + cl_loss + \
-                       l1 + l2 + l3 + l4
+                loss = 0.1 * traj_cl_loss + 0.1 * relation_cl_loss + 0.1 * eug_cl_loss + 0.1 * sug_cl_loss + cl_loss + \
+                       0.1 * (l1 + l2 + l3 + l4)
 
                 optimizer.zero_grad()
                 loss.backward(retain_graph=True)
@@ -202,7 +205,9 @@ def train(args, moco, batch_traj, batch_len, batch_region, batch_num, urban_adj,
 
             total_loss_list.append(loss.item())
 
-        print('epoch {}, loss {:.4}'.format(epoch, np.mean(total_loss_list)))
+        print('epoch {}, total loss {:.4}'.format(epoch, np.mean(total_loss_list)))
+
+    torch.save(moco, '{}.pth'.format(args.stage))
 
 
 def eval(args, moco, batch_traj, batch_len, batch_region, batch_num, urban_adj, \
@@ -246,6 +251,7 @@ def main(args):
     print("Number of parameters：{:.3} k".format(total_params / 1024))
 
     moco = MOCO(hgcl_model, args.hidden_dim, device).to(device)
+    # moco = torch.load('{}.pth'.format('traj'))
 
     if args.mode == 'train':
         train(args, moco, batch_traj, batch_len, batch_region, batch_num, urban_adj, \
@@ -261,13 +267,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode', type=str, default='train')
     parser.add_argument('--data_path', type=str, default='sample_data.pkl')
-    parser.add_argument('--stage', type=str, default='total', help='Within [traj, relation_graph, urban, total]')
+    parser.add_argument('--stage', type=str, default='relation_graph', help='Within [traj, relation_graph, urban, total]')
     parser.add_argument('--batch_size', type=int, default=10)
     parser.add_argument('--lr', type=int, default=1e-3)
     parser.add_argument('--weight_decay', type=int, default=1e-5)
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--hidden_dim', type=int, default=64)
-    parser.add_argument('--epoch', type=int, default=1000)
+    parser.add_argument('--epoch', type=int, default=500)
 
     args = parser.parse_args()
 
