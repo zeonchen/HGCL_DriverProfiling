@@ -25,7 +25,7 @@ HGCL uses the following dependencies:
 
 ## Dataset
 
-The dataset is based on [Chengdu Taxi dataset](https://www.pkbigdata.com/common/zhzgbCmptDataDetails.html#down), with around 5000 taxi drivers. Since the overall dataset is extremely large, here we provide sample dataset with trajectories from 10 drivers.
+The dataset is based on [Chengdu Taxi dataset](https://www.pkbigdata.com/common/zhzgbCmptDataDetails.html#down), with around 5000 taxi drivers. Since the overall dataset is extremely large, here we provide [sample dataset](https://hkustconnect-my.sharepoint.com/:u:/g/personal/kchenbm_connect_ust_hk/EeaQ-e4usU5AkT2nf85YHlMB09sShvydhnQngUBPq_DJhw?e=fDE8K5) with trajectories from 10 drivers (~700 M).
 
 
 
@@ -54,4 +54,6 @@ Then you can train the model with designated hyperparameters, for instance:
 ```shell
 python main.py --mode 'train' --stage 'total' --lr 1e-3 --hidden_dim 64
 ```
+
+## Citation
 
