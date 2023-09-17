@@ -57,3 +57,16 @@ python main.py --mode 'train' --stage 'total' --lr 1e-3 --hidden_dim 64
 
 ## Citation
 
+[Paper](https://www.sciencedirect.com/science/article/abs/pii/S0968090X23003145) 
+
+### Cite the paper as follows:
+
+    @article{chen2023region,
+      title={Region-Aware Hierarchical Graph Contrastive Learning for Ride-Hailing Driver Profiling},
+      author={Chen, Kehua and Han, Jindong and Feng, Siyuan and Zhu, Meixin and Yang, Hai},
+      journal={Transportation Research Part C: Emerging Technologies},
+      volume={156},
+      pages={104325},
+      year={2023},
+      publisher={Elsevier}
+    }
